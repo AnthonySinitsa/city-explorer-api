@@ -21,12 +21,12 @@ Dan Quinn, Jared Ciccarello
 
 ## shtuff
 
-Name of feature:Server
+Name of feature: the whole project
 
-Estimate of time needed to complete: 2 hour
+Estimate of time needed to complete: 5 hour
 
-Start time:2:30
+Start time: 1:30
 
-Finish time:
+Finish time: 9:00
 
-Actual time needed to complete:
+Actual time needed to complete: 7:30 mins
