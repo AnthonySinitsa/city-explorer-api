@@ -1,37 +1,32 @@
 'use strict';
 const axios = require('axios');
 
-async function handleGetMovies(request, response, next) {
-  try {
-    console.log("request querey hERE: ", request.query);
-    let city = request.query.cityName;
-    let movieURL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}`
+let cache = require('./cache.js');
+
+async function getMovies(request, response, next) {
+  let city = request.query.cityName;
+  const key = 'movies-' + city;
+  let movieURL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${city}`
+
+  if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
+    console.log('Cache hit');
+  } else {
+    console.log('Cache miss');
+    cache[key] = {};
+    cache[key].timestamp = Date.now();
     let movieData = await axios.get(movieURL);
-    // console.log("movieDATA HERE: ", movieData.data.results);
 
-    let movieMap = parseMovies(movieData.data.results);
-    console.log("HERE MOVIES: ", movieMap);
-    movieMap.then(movie => {
-      response.status(200).send(movie);
-    })
-
-  } catch (error) {
-    console.log('HERE: ', error);
-    next(error)
+    try {
+      cache[key].data = movieData.data.results;
+      let movieDataToSend = cache[key].data.map(object => {
+        return new Movies(object);
+      });
+      response.status(200).send(movieDataToSend)
+    } catch (error) {
+      next(error)
+    }
   }
 };
-
-function parseMovies(moviesData) {
-  // console.log("movdiesDATA HERE: ", moviesData);
-  try {
-    const movieSummarize = moviesData.map(oneMovie => {
-      return new Movies(oneMovie);
-    });
-    return Promise.resolve(movieSummarize);
-  } catch (error) {
-    return Promise.reject(error);
-  }
-}
 
 class Movies {
   constructor(movie) {
@@ -45,4 +40,4 @@ class Movies {
   }
 }
 
-module.exports = handleGetMovies;
+module.exports = getMovies;
