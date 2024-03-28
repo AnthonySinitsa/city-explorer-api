@@ -1,42 +1,41 @@
-# city-explorer-api
+# City-Explorer-Api
 
 **Author**: Anthony Sinitsa
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+
+**Front-End-Repo**: [city-explorer](https://github.com/AnthonySinitsa/city-explorer)
 
 ## Overview
 
-this is an advanced API that updated my city explorer site with weather info.
+This repository contains the backend code for the City Explorer API project. It utilizes two API's: one for retrieving the location and weather of a city, and another for fetching movies related to that city.
 
-## Getting Started
+## Project Structure
 
-started it alright
+- src/: Contains the source code for the backend application.
 
-## Architecture
+  - controllers/: Contains the controller modules that handle the business logic of the API endpoints.
 
-going to use javascript components that get data from storage and use htme to make city cards.
+    - moviesController.js: Handles the logic for fetching movies related to a city.
 
-## Credit and Collaborations
+    - weatherController.js: Handles the logic for fetching the location and weather of a city.
 
-Dan Quinn, Jared Ciccarello
+  - models/: Contains the model modules that define the data schemas for the database.
 
-## shtuff
+    - moviesModel.js: Defines the schema for storing movie data.
 
-Name of feature: the whole project
+    - weatherModel.js: Defines the schema for storing weather data.
 
-Estimate of time needed to complete: 5 hour
+  - routes/: Contains the route modules that define the API endpoints.
 
-Start time: 1:30
+    - moviesRoutes.js: Defines the /movies endpoint for fetching movies.
 
-Finish time: 9:00
+    - weatherRoutes.js: Defines the /weather endpoint for fetching location and weather data.
 
-Actual time needed to complete: 7:30 mins
+  - app.js: The main entry point of the application.
 
-Name of feature: cache
+- package.json: Defines the project dependencies and scripts.
 
-Estimate of time needed to complete: 3 hours
+## Development
 
-Start time: 1:30
-
-Finish time: 4:00
-
-Actual time needed to complete: 2:30 mins
+```,
+npm start
+```
